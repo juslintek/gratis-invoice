@@ -20,7 +20,7 @@ final class InvoicePostType {
             ],
             'public'       => false,
             'show_ui'      => true,
-            'show_in_rest' => true,
+            'show_in_rest' => false,
             'menu_icon'    => 'dashicons-media-text',
             'supports'     => ['title', 'custom-fields'],
         ]);
@@ -30,7 +30,7 @@ final class InvoicePostType {
             register_post_meta('gratis_invoice', $key, [
                 'type'              => 'string',
                 'single'            => true,
-                'show_in_rest'      => true,
+                'show_in_rest'      => false,
                 'sanitize_callback' => 'sanitize_text_field',
                 'auth_callback'     => fn() => current_user_can('edit_posts'),
             ]);
@@ -38,7 +38,7 @@ final class InvoicePostType {
         register_post_meta('gratis_invoice', '_total', [
             'type'          => 'number',
             'single'        => true,
-            'show_in_rest'  => true,
+            'show_in_rest'  => false,
             'auth_callback' => fn() => current_user_can('edit_posts'),
         ]);
     }
