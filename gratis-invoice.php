@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Gratis Invoice
  * Plugin URI: https://github.com/juslintek/gratis-invoice
- * Description: Invoicing and estimates with printable PDF-ready output and multi-currency support.
+ * Description: Invoicing with line items, auto-recalculated totals, printable PDF-ready output, and multi-currency support.
  * Version: 1.0.0
  * Requires at least: 6.0
  * Requires PHP: 8.1
