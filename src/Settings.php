@@ -75,16 +75,17 @@ final class Settings {
         return max(1, (int) get_option(self::OPT_DUE_DAYS, 30));
     }
 
-    /** Stream a printable invoice (nonce + capability gated). */
+    /** Stream a printable invoice (nonce + per-invoice capability gated). */
     public static function handle_print(): void {
-        if (! current_user_can('edit_posts')) {
-            wp_die(esc_html__('You do not have permission to do that.', 'gratis-invoice'));
-        }
         check_admin_referer('gratis_invoice_print');
 
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- nonce verified above.
         $invoice_id = isset($_GET['invoice']) ? absint(wp_unslash($_GET['invoice'])) : 0;
-        $html       = InvoicePostType::generateHTML($invoice_id);
+        if ($invoice_id <= 0 || ! current_user_can('edit_post', $invoice_id)) {
+            wp_die(esc_html__('You do not have permission to do that.', 'gratis-invoice'));
+        }
+
+        $html = InvoicePostType::generateHTML($invoice_id);
         if ($html === '') {
             wp_die(esc_html__('Invoice not found.', 'gratis-invoice'));
         }
